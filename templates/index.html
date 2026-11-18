@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Network Automation Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Network Automation Dashboard</h1>
+
+    <form method="POST">
+        <button type="submit">Connect to Router</button>
+    </form>
+
+    {% if error %}
+        <h3>Error</h3>
+        <p>{{ error }}</p>
+    {% endif %}
+
+    {% for command, output in results.items() %}
+        <h3>{{ command }}</h3>
+        <pre>{{ output }}</pre>
+    {% endfor %}
+
+    <script src="route.js"></script>
+</body>
+</html>
