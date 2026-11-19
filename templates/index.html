@@ -1,29 +1,57 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Network Automation Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
 
-    <h1>Network Automation Dashboard</h1>
+<body>
+    <div class="nav-Top">
+        <div class="nav-Info">
+            <h1>Network Automation Dashboard</h1>
+            <label>About</label>
+            <label>Policy</label>
+        </div>
+        <div>
+            <label>Options: </label>
+            <select id="command">
+                <option value="version">Show Version</option>
+                <option value="interfaces">Show Interfaces</option>
+                <option value="config">Show Running Config</option>
+            </select>
+        </div>
+    </div>
+
 
     <form method="POST">
-        <button type="submit">Connect to Router</button>
+        <label for="router_ip">Router IP:</label>
+
+        <input type="text" id="router_ip" name="router_ip" placeholder="192.168.10.12" />
+        <button type="submit" id="btnSubmit">Connect to Router</button>
     </form>
+    <p id="status">Disconnected</p>
+
+    <div class="container">
+        <p>
+            Response/Request Body <br> C:/> show ip interface brief
+        </p>
+    </div>
+
+    <!-- <table></table> -->
 
     {% if error %}
-        <h3>Error</h3>
-        <p>{{ error }}</p>
+    <h3>Error</h3>
+    <p>{{ error }}</p>
     {% endif %}
 
     {% for command, output in results.items() %}
-        <h3>{{ command }}</h3>
-        <pre>{{ output }}</pre>
+    <h3>{{ command }}</h3>
+    <pre>{{ output }}</pre>
     {% endfor %}
 
-    <script src="route.js"></script>
+    <script src="{{ url_for('static', filename='route.js') }}"></script>
 </body>
+
 </html>
